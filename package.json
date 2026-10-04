@@ -1,0 +1,36 @@
+{
+  "name": "@mangler/pi-rules",
+  "version": "1.0.0",
+  "description": "Load Claude Code-style rule files from .claude/rules and .pi/rules into pi's context",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-extension",
+    "claude-code",
+    "rules"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkAngler/pi-rules.git"
+  },
+  "homepage": "https://github.com/MarkAngler/pi-rules#readme",
+  "bugs": {
+    "url": "https://github.com/MarkAngler/pi-rules/issues"
+  },
+  "type": "module",
+  "files": [
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node --test index.test.js"
+  },
+  "pi": {
+    "extensions": [
+      "./index.js"
+    ]
+  }
+}
