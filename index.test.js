@@ -115,6 +115,19 @@ test("collectRules propagates errors other than a missing directory", { skip: pr
   assert.throws(() => collectRules(project), (err) => err.code === "EACCES" && err.message.includes(path));
 });
 
+test("collectRules propagates ENOTDIR when a rules path is a file", () => {
+  const path = writeRule(project, ".claude/rules", "not a directory");
+  assert.throws(() => collectRules(project), (err) => err.code === "ENOTDIR" && err.message.includes(path));
+});
+
+test("collectRules propagates ELOOP from a self-referential symlink", () => {
+  const rulesDir = join(project, ".claude/rules");
+  mkdirSync(rulesDir, { recursive: true });
+  const path = join(rulesDir, "loop.md");
+  symlinkSync(path, path);
+  assert.throws(() => collectRules(project), (err) => err.code === "ELOOP" && err.message.includes(path));
+});
+
 test("handler appends the session_start snapshot after pi's context files", async () => {
   const path = writeRule(project, ".claude/rules/x.md", "Canary v1");
   const extension = loadExtension();
